@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maaf ya, sayang 🧸</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffe9ef; --paper:#fffaf3; --ink:#5a3a35; --soft:#9a7068; --pink:#ff8fab; --pink-d:#e0577f; --butter:#ffe29a; --mint:#bfeedd;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#2b1a22; --paper:#3a2630; --ink:#ffe9ef; --soft:#d8aab8; --pink:#ff8fab; --pink-d:#ff6b95; --butter:#7a6430; --mint:#2f5b4c; color-scheme:dark;}
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Fredoka","Trebuchet MS",system-ui,sans-serif;line-height:1.55;overflow-x:hidden}
+main{max-width:480px;margin:0 auto;padding:28px 20px 56px}
+h1{font-size:2.1rem;line-height:1.15;margin:.2em 0 .3em;text-align:center}
+h2{font-size:1.35rem;margin:0 0 .6em;text-align:center}
+p{margin:0 0 .8em}
+section{margin-top:34px}
+.sub{text-align:center;color:var(--soft)}
+
+/* hero */
+.hero{text-align:center;padding-top:8px}
+.bear{position:relative;display:inline-block;font-size:6.5rem;line-height:1;animation:sway 3s ease-in-out infinite;cursor:pointer;user-select:none}
+.tear{position:absolute;left:30%;top:46%;font-size:1.6rem;animation:drip 1.8s ease-in infinite}
+.tear.b{left:58%;animation-delay:.9s}
+@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+@keyframes drip{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(60px);opacity:0}}
+.hint{font-size:.85rem;color:var(--soft)}
+
+/* cards */
+.card{background:var(--paper);border-radius:22px;padding:18px 18px;box-shadow:0 6px 0 var(--pink);border:2px solid var(--pink)}
+.letter{background:var(--butter);border-color:transparent;box-shadow:0 6px 0 rgba(0,0,0,.12);transform:rotate(-1deg)}
+.letter p{margin-bottom:.7em}
+.sign{text-align:right;font-weight:600}
+
+/* reasons */
+.reasons{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+.reason{background:var(--paper);border:2px dashed var(--pink);border-radius:18px;padding:14px 10px;text-align:center;font-size:.95rem;cursor:pointer;transition:transform .2s}
+.reason b{display:block;font-size:2rem;transition:transform .3s}
+.reason.flip{background:var(--mint);border-style:solid}
+.reason.flip b{transform:rotate(360deg) scale(1.2)}
+
+/* promises */
+.promises{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.promises label{display:flex;gap:12px;align-items:center;background:var(--paper);border-radius:16px;padding:12px 14px;border:2px solid var(--pink);cursor:pointer}
+.promises input{width:22px;height:22px;accent-color:var(--pink-d);flex:none}
+.promises input:checked + span{text-decoration:line-through;color:var(--soft)}
+#sealed{text-align:center;font-weight:600;min-height:1.6em;margin-top:12px;color:var(--pink-d)}
+
+/* final */
+.final{text-align:center}
+.arena{position:relative;height:190px;margin-top:10px}
+.btn{font:inherit;font-weight:600;border:0;border-radius:999px;padding:14px 26px;cursor:pointer;transition:transform .15s,background .2s}
+.btn:active{transform:scale(.94)}
+#yes{background:var(--pink-d);color:#fff;font-size:1.1rem;position:absolute;left:50%;top:6px;transform:translateX(-50%);box-shadow:0 5px 0 rgba(0,0,0,.18)}
+#yes:active{transform:translateX(-50%) scale(.94)}
+#no{background:var(--paper);color:var(--ink);border:2px solid var(--pink);position:absolute;left:50%;top:110px;transform:translateX(-50%);max-width:92%}
+#msg{min-height:3.2em;color:var(--soft);margin-top:4px}
+.win{display:none;padding:10px 0}
+.win .big{font-size:4.5rem;animation:pop .6s ease-out}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
+.done .arena,.done #msg,.done .ask{display:none}
+.done .win{display:block}
+.heart{position:fixed;top:-30px;font-size:1.6rem;pointer-events:none;animation:fall linear forwards;z-index:9}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+footer{text-align:center;margin-top:30px;color:var(--soft);font-size:.85rem}
+
+/* tablet/desktop: kasih bingkai biar kayak layar hp */
+@media (min-width:481px){
+  body{padding:24px 0}
+  main{background:color-mix(in srgb,var(--bg) 70%,#fff);border-radius:36px;box-shadow:0 14px 0 var(--pink);}
+}
+/* handphone */
+@media (max-width:480px){
+  main{padding:22px 16px 48px}
+  h1{font-size:1.75rem}
+  .bear{font-size:5.5rem}
+  .reasons{gap:10px}
+  .reason{padding:12px 8px;font-size:.9rem}
+  .btn{padding:13px 22px}
+}
+@media (max-width:340px){
+  h1{font-size:1.5rem}
+  .reasons{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .bear,.tear,.win .big{animation:none}
+}
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero">
+  <div class="bear" id="bear" role="img" aria-label="Beruang sedih">🧸<span class="tear">💧</span><span class="tear b">💧</span></div>
+  <h1>Maaf ya, <span class="nama">sayang</span> 🥺</h1>
+  <p class="sub">Beruangnya nangis dari tadi. Tolong colek dia dulu.</p>
+  <p class="hint" id="hint">(colek beruangnya, 👆 )</p>
+</header>
+
+<section>
+  <h2>Surat kecil dari aku 💌</h2>
+  <div class="card letter">
+    <p>Hai <span class="nama">sayang</span>,</p>
+    <p>Aku tahu aku salah soal <b class="salah">kemarin</b>. Aku udah mikir panjang, makan nggak enak, tidur nggak nyenyak, dan HP-ku jadi berat karena isinya cuma nunggu chat dari kamu.</p>
+    <p>Aku nggak mau bikin alasan. Aku cuma mau bilang: aku nyesel, dan kamu jauh lebih penting daripada gengsiku.</p>
+    <p class="sign">Dari yang paling bandel,<br><span class="aku">aku</span> 🐻</p>
+  </div>
+</section>
+
+<section>
+  <h2>Kenapa aku harus dimaafin 🥹</h2>
+  <p class="sub" style="margin-top:-.4em">(tap kartunya)</p>
+  <div class="reasons" id="reasons">
+    <div class="reason"><b>🍜</b>Aku janji traktir makan favoritmu</div>
+    <div class="reason"><b>🫂</b>Pelukku masih gratis seumur hidup</div>
+    <div class="reason"><b>🐱</b>Aku nurut kalau disuruh elus kucing</div>
+    <div class="reason"><b>🎶</b>Aku nyanyi lagu sumbang kalau kamu minta</div>
+  </div>
+</section>
+
+<section>
+  <h2>Janji-janji aku 🤞</h2>
+  <ul class="promises" id="promises">
+    <li><label><input type="checkbox"><span>Nggak ngulangin kesalahan yang sama</span></label></li>
+    <li><label><input type="checkbox"><span>Bales chat lebih cepat dari kilat</span></label></li>
+    <li><label><input type="checkbox"><span>Dengerin dulu, baru ngomong</span></label></li>
+    <li><label><input type="checkbox"><span>Lebih sering bilang “makasih” dan “sayang”</span></label></li>
+  </ul>
+  <div id="sealed"></div>
+</section>
+
+<section class="final" id="final">
+  <h2 class="ask">Jadi... aku dimaafin nggak? 🥺👉👈</h2>
+  <div class="arena">
+    <button class="btn" id="yes">Iya, dimaafin 💖</button>
+    <button class="btn" id="no">Nggak</button>
+  </div>
+  <p id="msg">Pilih yang bener ya, sayang.</p>
+  <div class="win">
+    <div class="big">🥰</div>
+    <h2>YEAY!! Makasih ya sayang!</h2>
+    <p>Beruangnya udah berhenti nangis, sekarang malah joget. Nanti aku jemput ya, kita cari makan enak. 🍜💞</p>
+  </div>
+</section>
+
+<footer>dibuat pakai hati (dan sedikit panik) 🧸</footer>
+</main>
+
+<script>
+/* ====== EDIT DI SINI ====== */
+var NAMA  = "Cipa Cantik";      // panggilan dia, contoh: "Bebeb", "Nana"
+var SALAH = "kemarin";     // salahnya apa, contoh: "telat jemput kamu"
+var AKU   = "Mugi Jelek";         // namamu / panggilanmu
+/* ========================== */
+
+document.querySelectorAll(".nama").forEach(function(e){e.textContent=NAMA});
+document.querySelectorAll(".salah").forEach(function(e){e.textContent=SALAH});
+document.querySelectorAll(".aku").forEach(function(e){e.textContent=AKU});
+
+function hearts(n){
+  var set=["💖","💗","💕","🌸","🧸","✨"];
+  for(var i=0;i<n;i++){
+    var h=document.createElement("div");
+    h.className="heart";
+    h.textContent=set[Math.floor(Math.random()*set.length)];
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(2+Math.random()*2.5)+"s";
+    h.style.animationDelay=(Math.random()*.8)+"s";
+    document.body.appendChild(h);
+    setTimeout(function(x){x.remove()},5500,h);
+  }
+}
+
+/* colek beruang */
+var pokes=0;
+var bearLines=["(colek lagi, dia lagi sedih 👆)","Hiks... jangan galak-galak 🥺","Iya iya, dia ngerti kok kamu masih kesel","Dia mulai senyum dikit lho 👀","Tuh kan, dia udah mau peluk kamu 🫂"];
+document.getElementById("bear").addEventListener("click",function(){
+  pokes++;
+  document.getElementById("hint").textContent=bearLines[Math.min(pokes,bearLines.length-1)];
+  this.textContent=pokes>3?"🐻":"🧸";
+  hearts(4);
+});
+
+/* kartu alasan */
+document.querySelectorAll(".reason").forEach(function(c){
+  c.addEventListener("click",function(){c.classList.toggle("flip")});
+});
+
+/* janji */
+var boxes=document.querySelectorAll("#promises input");
+boxes.forEach(function(b){
+  b.addEventListener("change",function(){
+    var all=Array.prototype.every.call(boxes,function(x){return x.checked});
+    document.getElementById("sealed").textContent=all?"Semua janji tersegel 💌 (nggak boleh dilanggar ya!)":"";
+    if(all)hearts(14);
+  });
+});
+
+/* tombol nggak yang kabur */
+var no=document.getElementById("no"), yes=document.getElementById("yes"), msg=document.getElementById("msg"), arena=document.querySelector(".arena");
+var tries=0, size=1.1;
+var noTexts=["Nggak","Yakin?","Coba pikir lagi","Beruangnya nangis lho 😭","Aku traktir seblak deh","Please please please","Tombolnya capek kabur-kabur","Yaudah iya deh..."];
+var msgs=["Pilih yang bener ya, sayang.","Eh kok kabur 😳","Tombol ini nggak mau dipencet.","Jempolmu salah sasaran tuh.","Yang gede itu lho, di atas 👆","Masa tega sama beruang?","Dikit lagi nyerah nih tombolnya.","Nah gitu dong."];
+
+function moveNo(e){
+  if(e&&e.preventDefault)e.preventDefault();
+  tries++;
+  if(tries>=7){no.textContent=noTexts[7];no.style.left="50%";no.style.top="110px";msg.textContent=msgs[7];no.onclick=win;return}
+  var w=arena.clientWidth-no.offsetWidth, h=arena.clientHeight-no.offsetHeight;
+  var x=Math.random()*w, y=70+Math.random()*(h-70);
+  no.style.transform="none"; no.style.left=x+"px"; no.style.top=y+"px";
+  no.textContent=noTexts[tries];
+  msg.textContent=msgs[tries];
+  size=Math.min(size+.12,1.6);
+  yes.style.fontSize=size+"rem";
+}
+no.addEventListener("mouseenter",function(e){if(tries<7)moveNo(e)});
+no.addEventListener("touchstart",function(e){if(tries<7)moveNo(e)},{passive:false});
+no.addEventListener("click",function(e){if(tries<7)moveNo(e)});
+
+function win(){
+  document.getElementById("final").classList.add("done");
+  hearts(40);
+  window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+}
+yes.addEventListener("click",win);
+</script>
+</body>
+</html>
