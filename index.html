@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maaf ya, sayang</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#fdf1ef;--bg2:#f8dce3;--ink:#4a2038;--soft:#7d5468;--rose:#e0566f;--green:#5f8f5a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{color-scheme:light;height:100%}
+*{box-sizing:border-box;margin:0}
+body{min-height:100%;background:linear-gradient(180deg,var(--bg1),var(--bg2) 60%,#f3c9d4);color:var(--ink);
+font-family:Figtree,system-ui,sans-serif;font-size:18px;line-height:1.6;overflow-x:hidden}
+main{max-width:480px;margin:0 auto;padding:0 28px}
+section{min-height:78svh;display:flex;flex-direction:column;justify-content:center}
+section.hero{min-height:100svh}
+h1,h2{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:700;line-height:1.15;letter-spacing:-.01em}
+h1{font-size:68px;color:var(--rose)}
+h2{font-size:34px}
+p{max-width:34ch;color:var(--soft)}
+p+p{margin-top:14px}
+.hint{margin-top:28px;font-size:15px;color:var(--soft);animation:bob 2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(6px)}}
+.stage{height:260svh;margin:0 -28px}
+.pin{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 28px}
+#garden{position:relative;width:100%;height:42svh}
+.fl{position:absolute;bottom:0;width:0}
+.stem{position:absolute;bottom:0;left:-1.5px;width:3px;background:var(--green);border-radius:2px;transform-origin:bottom;transform:scaleY(0)}
+.head{position:absolute;left:0;bottom:0}
+.head svg{display:block;transform:translate(-50%,50%)}
+#cap{margin-top:34px;text-align:center;opacity:0;font-family:Fraunces,Georgia,serif;font-style:italic;font-size:25px;line-height:1.35;color:var(--ink)}
+#cap span{display:block;margin-top:10px;color:var(--rose);font-weight:700}
+.end{min-height:100svh;padding:12svh 0}
+.btns{display:flex;flex-direction:column;gap:12px;margin-top:28px;min-height:130px}
+button{font:600 17px Figtree,sans-serif;padding:15px 20px;border-radius:999px;border:2px solid var(--rose);cursor:pointer;background:var(--rose);color:#fff;touch-action:manipulation}
+button.no{background:#fff8f8;color:var(--rose);transition:left .25s ease,top .25s ease}
+button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+#reply{margin-top:20px;font-family:Fraunces,Georgia,serif;font-style:italic;font-size:22px;color:var(--ink);min-height:3em}
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <h1>Maaf ya, sayang.</h1>
+    <p style="margin-top:18px">Ada yang mau aku sampaikan. Scroll pelan-pelan ya.</p>
+    <span class="hint">↓ geser ke bawah</span>
+  </section>
+
+  <div class="stage" id="stage">
+    <div class="pin" id="pin">
+      <div id="garden" aria-hidden="true"></div>
+      <div id="cap">Ini aku kasih bunga hari ini dari website dulu ya.<span>Besok aku kasih bunga yang asli. 🌷</span></div>
+    </div>
+  </div>
+
+  <section>
+    <h2>Aku tau kemarin aku salah.</h2>
+    <p style="margin-top:18px">Aku nggak mau cari-cari alasan atau bela diri. Yang jelas, aku bikin kamu sedih, dan itu bikin aku nyesel banget.</p>
+  </section>
+  <section>
+    <h2>Perasaan kamu itu valid.</h2>
+    <p style="margin-top:18px">Harusnya aku dengerin kamu dulu, bukan malah bikin kamu makin sakit hati. Kamu berhak kesel, dan kamu berhak dihargai.</p>
+  </section>
+  <section>
+    <h2>Aku lagi belajar jadi lebih baik.</h2>
+    <p style="margin-top:18px">Bukan cuma biar kamu maafin aku, tapi karena kamu penting banget buat aku, dan aku nggak mau ngulang kesalahan yang sama.</p>
+  </section>
+  <section class="end">
+    <h2>Sekali lagi, aku minta maaf.</h2>
+    <p style="margin-top:18px">Aku tau kamu belum mau ketemu, dan aku hargai itu. Tapi kalau kamu bersedia kasih aku kesempatan, boleh nggak aku ketemu kamu sebentar?</p>
+    <p>Cuma buat ngomong langsung dan minta maaf yang bener. Aku nggak bakal maksa.</p>
+    <div class="btns"><button id="yes">Boleh, kita ketemu</button><button id="no" class="no">Enggak dulu</button></div>
+    <div id="reply" aria-live="polite"></div>
+  </section>
+</main>
+<script>
+(function(){
+var g=document.getElementById("garden"),pin=document.getElementById("pin"),st=document.getElementById("stage"),cap=document.getElementById("cap");
+var cols=["#e0566f","#f4a28c","#b79ce0","#f7c85a","#ee7d9a","#f4a28c","#e0566f","#b79ce0","#f7c85a"];
+function head(c,s){var p="";for(var i=0;i<6;i++)p+='<ellipse cx="0" cy="-24" rx="13" ry="24" transform="rotate('+i*60+')" fill="'+c+'" fill-opacity=".95"/>';
+return '<svg width="'+s+'" height="'+s+'" viewBox="-50 -50 100 100">'+p+'<circle r="11" fill="#fff3c4"/><circle r="5" fill="#e8a93a"/></svg>';}
+var n=9,fls=[];
+for(var i=0;i<n;i++){
+  var d=document.createElement("div");d.className="fl";
+  d.style.left=(12+i*(76/(n-1)))+"%";
+  var h=80+(1-Math.abs(i-4)/4)*130+((i*37)%3)*10, s=54+((i*29)%3)*10;
+  d.innerHTML='<div class="stem" style="height:'+h+'px"></div><div class="head">'+head(cols[i],s)+'</div>';
+  g.appendChild(d);
+  fls.push({s:d.firstChild,h:d.lastChild,H:h,t:i*0.06});
+}
+function ez(x){x=Math.max(0,Math.min(1,x));return 1-Math.pow(1-x,3)}
+var tick=false;
+function update(){
+  tick=false;
+  var r=st.getBoundingClientRect(),p=Math.max(0,Math.min(1,-r.top/(r.height-innerHeight))),q=Math.min(1,p/0.65);
+  for(var i=0;i<fls.length;i++){
+    var f=fls[i],gr=ez((q-f.t)/0.4),b=ez((q-f.t-0.25)/0.35);
+    f.s.style.transform="scaleY("+gr+")";
+    f.h.style.transform="translateY("+(-gr*f.H)+"px) scale("+b+") rotate("+(b*40-40)+"deg)";
+  }
+  cap.style.opacity=ez((p-0.55)/0.2);
+  pin.style.opacity=p>0.88?Math.max(0,1-(p-0.88)/0.12):1;
+}
+function req(){if(!tick){tick=true;requestAnimationFrame(update)}}
+addEventListener("scroll",req,{passive:true});addEventListener("resize",req);update();
+
+var yes=document.getElementById("yes"),no=document.getElementById("no");
+function run(e){
+  if(e&&e.cancelable)e.preventDefault();
+  var w=no.offsetWidth,h=no.offsetHeight,yr=yes.getBoundingClientRect(),x,y,k=0;
+  no.style.position="fixed";no.style.zIndex=5;
+  do{x=12+Math.random()*(innerWidth-w-24);y=60+Math.random()*(innerHeight-h-120);k++}
+  while(k<20&&x<yr.right+10&&x+w>yr.left-10&&y<yr.bottom+10&&y+h>yr.top-10);
+  no.style.left=x+"px";no.style.top=y+"px";
+}
+["pointerdown","mouseenter","focus","click"].forEach(function(t){no.addEventListener(t,run)});
+no.addEventListener("touchstart",run,{passive:false});
+yes.onclick=function(){
+  document.querySelector(".btns").style.display="none";
+  var r=document.getElementById("reply");
+  r.style.fontSize="30px";r.style.lineHeight="1.25";
+  r.textContent="Oke, OTW ya sayang ke rumah 🏃‍♂️💨";
+};
+})();
+</script>
+</body>
+</html>
